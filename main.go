@@ -10,6 +10,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/rexsimiloluwah/go-rest-api/controllers"
 	"github.com/rexsimiloluwah/go-rest-api/middlewares"
 )
