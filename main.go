@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -11,16 +12,13 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/rexsimiloluwah/go-rest-api/controllers"
 	"github.com/rexsimiloluwah/go-rest-api/middlewares"
-	"github.com/rexsimiloluwah/go-rest-api/models"
 )
 
-func HelloWorld(w http.ResponseWriter, req *http.Request) {
-	fmt.Println("Test 2")
-	user := &models.User{}
-	fmt.Println(user)
-	fmt.Println("Hello world")
-	w.WriteHeader(200)
-	w.Write([]byte("Hello World."))
+var indexTemplate = template.Must(template.ParseFiles("index.html"))
+
+func Index(w http.ResponseWriter, req *http.Request) {
+	indexTemplate.Execute(w, nil)
+
 }
 
 func main() {
@@ -38,7 +36,7 @@ func main() {
 	fmt.Println("PORT:- ", PORT)
 	// Initialize Mux router
 	router := mux.NewRouter()
-	router.HandleFunc("/", HelloWorld)
+	router.HandleFunc("/", Index).Methods("GET")
 	router.HandleFunc("/api/v1/auth/register", controllers.Register).Methods("POST")
 	router.HandleFunc("/api/v1/auth/login", controllers.Login).Methods("POST")
 	router.HandleFunc("/api/v1/post", controllers.CreatePost).Methods("POST")

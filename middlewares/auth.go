@@ -15,6 +15,7 @@ func AuthRequired(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		// List of endpoints that do not require Auth
 		unAuthEndpoints := []string{
+			"/",
 			"/api/v1/auth/login",
 			"/api/v1/auth/register",
 			"/api/v1/posts",
