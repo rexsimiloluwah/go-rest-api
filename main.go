@@ -9,7 +9,6 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/rexsimiloluwah/go-rest-api/controllers"
 	"github.com/rexsimiloluwah/go-rest-api/middlewares"
@@ -23,10 +22,10 @@ func Index(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatal(err.Error())
+	// }
 
 	var PORT string
 	PORT = os.Getenv("PORT")
