@@ -1,0 +1,46 @@
+version: "3"
+
+services: 
+  database: 
+    image: mysql:5.7 
+    restart: always
+    ports: 
+      - 3307:3306 
+    environment: 
+      MYSQL_DATABASE: ${DB_NAME} 
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: theblackdove
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    expose: 
+      - 3306
+    networks:
+      - db
+    # healthcheck: 
+    #   test: ["CMD-SHELL","echo 'select 1' | mysql -utheblackdove -p$$DB_PASSWORD"]
+    #   interval: 30s
+    #   retries: 6
+    #   timeout: 20s
+
+  server: 
+    build: . 
+    ports: 
+      - "5050:5050"
+    restart: always
+    depends_on:
+      - database
+    volumes:
+      - ".:/app"
+    environment: 
+      STAGING_MODE: ${STAGING_MODE}
+      DB_USER: ${DB_USER}
+      DB_NAME: ${DB_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: ${DB_PORT}
+      DB_HOST: ${DB_HOST}
+    networks:
+      - db
+
+# Networks to be created to facilitate communication between containers
+networks:
+  db:
+    driver: bridge

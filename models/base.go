@@ -21,6 +21,7 @@ func init() {
 	if err != nil {
 		log.Fatal("Error loading environment variables from .env")
 	}
+	//fmt.Println("What is going on...")
 
 	STAGING_MODE := os.Getenv("STAGING_MODE")
 	DB_PROD_URL := os.Getenv("DB_PROD_URL")
